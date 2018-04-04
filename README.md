@@ -1,7 +1,7 @@
 # React http basics
 
-React 16 http basics with [axios](https://github.com/axios/axios).
-[jsonplaceholder.typicode](https://jsonplaceholder.typicode.com/) used as a fake online REST API.
+- React 16 http basics with [axios](https://github.com/axios/axios).
+- Fake online REST API [jsonplaceholder.typicode](https://jsonplaceholder.typicode.com/).
 
 ---
 ## Install dependencies
