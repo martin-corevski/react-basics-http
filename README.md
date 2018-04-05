@@ -2,6 +2,7 @@
 
 - React 16 http basics with [axios](https://github.com/axios/axios).
 - Fake online REST API [jsonplaceholder.typicode](https://jsonplaceholder.typicode.com/).
+- Taught by **[Maximilian Schwarzmüller](https://www.udemy.com/react-the-complete-guide-incl-redux/)**.
 
 ---
 ## Install dependencies
