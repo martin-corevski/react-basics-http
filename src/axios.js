@@ -22,7 +22,7 @@ axios.interceptors.response.use(response => {
   // Edit response config
   return response
 }, error => {
-  // request error handling, like loss of internet connection, server problems..
+  // response error handling, like loss of internet connection, server problems..
   console.log('axios INSTANCE interceptors response error: ', error)
   return Promise.reject(error)
 })
