@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const occurrenceOrderPlugin = new webpack.optimize.OccurrenceOrderPlugin()
 const hotModuleReplacementPlugin = new webpack.HotModuleReplacementPlugin()
@@ -31,6 +32,9 @@ const extractTextPlugin = new ExtractTextPlugin({
    * @type {String}
    */
   filename: 'css/index.css'
+})
+const copyWebpackPlugin = new CopyWebpackPlugin([{ from: '../favicon.ico' }], {
+  copyUnmodified: true
 })
 
 module.exports = env => {
@@ -87,7 +91,7 @@ module.exports = env => {
        * webpack-dev-server.
        * @type {Number}
        */
-      port: 8889,
+      port: 8892,
       /**
        * We can control what bundle information is displayed. To show only errors
        * more info on stats options https://webpack.js.org/configuration/stats
@@ -172,7 +176,7 @@ module.exports = env => {
        * @param  {String} content File name
        * @return {Boolean}        True if the content doesn't need to be parsed
        */
-      noParse: function (content) {
+      noParse: function(content) {
         return /jquery/.test(content)
       },
       /**
@@ -292,12 +296,12 @@ module.exports = env => {
     optimization: debug
       ? {}
       : {
-        /**
+          /**
            * For production we can uglify the .js files.
            * @type {Boolean}
            */
-        minimize: true
-      },
+          minimize: true
+        },
     /**
      * The plugins option is used to customize the Webpack build process in
      * different ways. We can run different plugins depending on the environment.
@@ -305,46 +309,52 @@ module.exports = env => {
      */
     plugins: debug
       ? [
-        /**
+          /**
            * Enable hot option under devServer.
            * @type {Object}
            */
-        hotModuleReplacementPlugin,
-        /**
+          hotModuleReplacementPlugin,
+          /**
            * Enable .html files script bundling and minimization (check html-loader).
            * @type {Object}
            */
-        htmlWebpackPlugin,
-        /**
+          htmlWebpackPlugin,
+          /**
            * Enables hard disk file writting for html script injection. This way
            * Webpack's dev server will see the injected script.
            * @type {[type]}
            */
-        htmlWebpackHarddiskPlugin,
-        /**
+          htmlWebpackHarddiskPlugin,
+          /**
            * Extracts css from the bundle.
            * @type {[type]}
            */
-        extractTextPlugin
-      ]
+          extractTextPlugin,
+          /**
+           * Copy static files such as favicon.ico.
+           * @type {Object}
+           */
+          copyWebpackPlugin
+        ]
       : [
-        /**
+          /**
            * We can clear the content from our dist folder before every build:prod
            * by utilising the clean-webpack-plugin https://github.com/johnagan/clean-webpack-plugin
            * @type {Object}
            */
-        cleanWebpackPlugin,
-        htmlWebpackPlugin,
-        htmlWebpackHarddiskPlugin,
-        extractTextPlugin,
-        /**
+          cleanWebpackPlugin,
+          htmlWebpackPlugin,
+          htmlWebpackHarddiskPlugin,
+          extractTextPlugin,
+          /**
            * Official docs https://github.com/webpack/docs/wiki/optimization:
            * Webpack gives our modules and chunks ids to identify them. Webpack can
            * vary the distribution of the ids to get the smallest id length for
            * often used ids with a simple option.
            * @type {Object}
            */
-        occurrenceOrderPlugin
-      ]
+          occurrenceOrderPlugin,
+          copyWebpackPlugin
+        ]
   }
 }
